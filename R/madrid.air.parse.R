@@ -93,7 +93,7 @@ madrid.air.parse <- function (input, output = NA, station = NA, magnitude = NA) 
 
 	# Save the dataset to disk.
 	if (!is.na(output)) {
-		write.csv(air_data, file=output, row.names=F, quote=F)
+		utils::write.csv(air_data, file=output, row.names=F, quote=F)
 	}
 
 	air_data
@@ -121,14 +121,14 @@ madrid.air.parser.daily <- function (input, year, output = NA) {
 	# data. See: http://datos.madrid.es/FWProjects/egob/contenidos/datasets/fich
 	# eros/MedioAmbiente_CalidadAire/INTPHORA-DIA_V2.2.pdf
 	if (year < 2011) {
-		air_data <- read.fwf(input, widths=c(8, 2, 2, 2, 2, 2, 2,
-		                     rep(6, 31)), stringsAsFactors=F)
+		air_data <- utils::read.fwf(input, widths=c(8, 2, 2, 2, 2, 2, 2,
+		                            rep(6, 31)), stringsAsFactors=F)
 
 		# Remove the extra column.
 		air_data <- air_data[,-7]
 	} else {
-		air_data <- read.fwf(input, widths=c(8, 2, 2, 2, 2, 2,
-		                     rep(6, 31)), stringsAsFactors=F)
+		air_data <- utils::read.fwf(input, widths=c(8, 2, 2, 2, 2, 2,
+		                            rep(6, 31)), stringsAsFactors=F)
 	}
 
 	# Remove the measurement technique and period columns.
