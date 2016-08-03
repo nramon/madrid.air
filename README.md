@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/nramon/madrid.air.svg?branch=master)](https://travis-ci.org/nramon/madrid.air)
+
 # Madrid Air Quality Data Parser
 
 Convert raw air quality data published by [http://datos.madrid.es/](http://datos.madrid.es/) to a clean data frame.
@@ -11,7 +13,7 @@ The original format is hard to interpret:
 [madrid.air](https://github.com/nramon/madrid.air) allows you to convert it to a more readable form:
 
 ```
-   Station Year Month Day Hour Magnitude Value
+     Station Year Month Day Hour Magnitude Value
 1	28079002 2001     4  28    1        O3 44.55
 2	28079002 2001     4  28    2        O3 52.04
 3	28079002 2001     4  28    3        O3 48.30
