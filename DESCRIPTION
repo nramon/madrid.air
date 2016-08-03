@@ -11,6 +11,7 @@ License: GPL-3
 Depends:
 	R (>= 2.15.0)
 Imports:
+	utils,
     tidyr,
     dplyr
 Suggests:
