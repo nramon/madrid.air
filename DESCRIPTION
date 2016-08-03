@@ -1,0 +1,18 @@
+Package: madrid.air
+Type: Package
+Title: Madrid Air Quality Data Parser
+Version: 0.1.0
+Date: 2016-05-24
+Author: Ramon Novoa
+Maintainer: Ramon Novoa <ramonnovoa@gmail.com>
+Description: Convert raw air quality data published by
+    \url{http://datos.madrid.es/} to a clean data frame.
+License: GPL-3
+Depends:
+	R (>= 2.15.0)
+Imports:
+    tidyr,
+    dplyr
+Suggests:
+    testthat
+RoxygenNote: 5.0.1.9000
