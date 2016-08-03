@@ -67,8 +67,8 @@ Month = Day = Hour = Value = ValidationCode = NULL
 madrid.air.parse <- function (input, output = NA, station = NA, magnitude = NA) {
 	
 	# Read the first record to parse the year and period.
-	air_data <- read.fwf(input, widths=c(8, 2, 2, 2, 2, 2, 2),
-	                     stringsAsFactors=F, n=1)
+	air_data <- utils::read.fwf(input, widths=c(8, 2, 2, 2, 2, 2, 2),
+	                            stringsAsFactors=F, n=1)
 	period = air_data[1, 4]
 	year = air_data[1,5] + 2000
 
@@ -164,8 +164,8 @@ madrid.air.parser.daily <- function (input, year, output = NA) {
 ################################################################################
 madrid.air.parser.hourly <- function (input) {
 	
-	air_data <- read.fwf(input, widths=c(8, 2, 2, 2, 2, 2, 2, rep(6, 24)),
-	                        stringsAsFactors=F)
+	air_data <- utils::read.fwf(input, widths=c(8, 2, 2, 2, 2, 2, 2, rep(6, 24)),
+	                            stringsAsFactors=F)
 
 	# Remove the measurement technique and period columns.
 	air_data <- air_data[,-c(3, 4)]
