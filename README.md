@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/nramon/madrid.air.svg?branch=master)](https://travis-ci.org/nramon/madrid.air)
+[![Build Status](https://travis-ci.org/nramon/madrid.air.svg?branch=master)](https://travis-ci.org/nramon/madrid.air) [![codecov](https://codecov.io/gh/nramon/madrid.air/branch/master/graph/badge.svg)](https://codecov.io/gh/nramon/madrid.air)
 
 # Madrid Air Quality Data Parser
 
