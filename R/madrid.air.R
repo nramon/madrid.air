@@ -20,4 +20,3 @@
 #' \code{\link{madrid.air.stations}}
 #' @seealso \url{https://github.com/nramon/madrid.air}
 "_PACKAGE"
-

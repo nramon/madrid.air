@@ -15,5 +15,6 @@ Imports:
     tidyr,
     dplyr
 Suggests:
-    testthat
+    testthat,
+	lintr
 RoxygenNote: 5.0.1.9000

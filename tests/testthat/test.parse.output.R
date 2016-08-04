@@ -13,19 +13,22 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 test_that("CSV output is working", {
-	
-	# Delete the CSV file if it already exists.
-	if (file.exists("test.parse.output.csv")) {
-		unlink("test.parse.output.csv") 
-	}
 
-	# Save the dataset to disk.
-	data <- madrid.air.parse("test.parse.output.data", output="test.parse.output.csv")
+  # Delete the CSV file if it already exists.
+  if (file.exists("test.parse.output.csv")) {
+    unlink("test.parse.output.csv")
+  }
 
-	# Check the generated CSV file.
-	expect_equal(file.exists("test.parse.output.csv"), TRUE)
-	expect_equal(length(readLines("test.parse.output.csv")), 25) # One line per hour plusheader.
+  # Save the dataset to disk.
+  data <- madrid.air.parse(input = "test.parse.output.data",
+                           output = "test.parse.output.csv")
 
-	# Clean-up.
-	unlink("test.parse.output.csv")
+  # Check the generated CSV file.
+  expect_equal(file.exists("test.parse.output.csv"), TRUE)
+
+  # One line per hour plusheader.
+  expect_equal(length(readLines("test.parse.output.csv")), 25)
+
+  # Clean up.
+  unlink("test.parse.output.csv")
 })

@@ -13,21 +13,21 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 test_that("daily data is properly parsed", {
-	
-	# Test daily data for 2001/03
-	data <- madrid.air.parse("test.parse.daily.2001.data")
 
-	# One row per day.
-	expect_equal(nrow(data), 31)
+  # Test daily data for 2001/03
+  data <- madrid.air.parse("test.parse.daily.2001.data")
 
-	# Six variables.
-	expect_equal(ncol(data), 6)
+  # One row per day.
+  expect_equal(nrow(data), 31)
 
-	# Test variables for 2001/11/15
-	expect_equal(as.character(data[7, 1]), "28079001")
-	expect_equal(data[7, 2], 2001)
-	expect_equal(data[7, 3], 3)
-	expect_equal(data[7, 4], 7)
-	expect_equal(as.character(data[7, 5]), "CO")
-	expect_equal(data[7, 6], 1.34)
+  # Six variables.
+  expect_equal(ncol(data), 6)
+
+  # Test variables for 2001/11/15
+  expect_equal(as.character(data[7, 1]), "28079001")
+  expect_equal(data[7, 2], 2001)
+  expect_equal(data[7, 3], 3)
+  expect_equal(data[7, 4], 7)
+  expect_equal(as.character(data[7, 5]), "CO")
+  expect_equal(data[7, 6], 1.34)
 })

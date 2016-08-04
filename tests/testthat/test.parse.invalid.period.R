@@ -13,5 +13,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 test_that("invalid periods are detected", {
-	expect_error(madrid.air.parse("test.parse.invalid.period.data"), "Invalid file format.")
+  expect_error(madrid.air.parse("test.parse.invalid.period.data"),
+               "Invalid file format.")
 })

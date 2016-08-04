@@ -12,17 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-test_that("filters are working", {
-
-  # Filter by station.
-  data <- madrid.air.parse("test.parse.filters.data", station = 28079002)
-
-  # One row per hour
-  expect_equal(sum(data$Station == 28079002), 24)
-
-  # Filter by magnitude.
-  data <- madrid.air.parse("test.parse.filters.data", magnitude = "CO")
-
-  # One row per hour.
-  expect_equal(sum(as.character(data$Magnitude) == "CO"), 24)
-})
+# See: https://github.com/jimhester/lintr
+if (requireNamespace("lintr", quietly = TRUE)) {
+  context("lints")
+  test_that("Package Style", {
+    lintr::expect_lint_free()
+  })
+}

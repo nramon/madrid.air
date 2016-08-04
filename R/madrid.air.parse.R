@@ -13,11 +13,15 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # We will need the magnitude and station datasets.
-data(madrid.air.magnitudes, envir=environment())
-data(madrid.air.stations, envir=environment())
+data(madrid.air.magnitudes, envir = environment())
+data(madrid.air.stations, envir = environment())
 
 # Supress warnings.
-Month = Day = Hour = Value = ValidationCode = NULL
+Month <- NULL
+Day <- NULL
+Hour <- NULL
+Value <- NULL
+ValidationCode <- NULL
 
 ################################################################################
 #' Air quality data parser.
@@ -64,39 +68,42 @@ Month = Day = Hour = Value = ValidationCode = NULL
 #' madrid.air.parse('Ene_mo01.txt', magnitude='CO')
 #' @export
 ################################################################################
-madrid.air.parse <- function (input, output = NA, station = NA, magnitude = NA) {
-	
-	# Read the first record to parse the year and period.
-	air_data <- utils::read.fwf(input, widths=c(8, 2, 2, 2, 2, 2, 2),
-	                            stringsAsFactors=F, n=1)
-	period = air_data[1, 4]
-	year = air_data[1,5] + 2000
+madrid.air.parse <- function (input,
+                              output = NA,
+                              station = NA,
+                              magnitude = NA) {
 
-	# Parse air quality data.
-	if (period == 2) {
-		air_data <- madrid.air.parser.hourly(input)
-	} else if (period == 4) {
-		air_data <- madrid.air.parser.daily(input, year)
-	} else {
-		stop("Invalid file format.")
-	}
+  # Read the first record to parse the year and period.
+  air_data <- utils::read.fwf(input, widths = c(8, 2, 2, 2, 2, 2, 2),
+                              stringsAsFactors = FALSE, n = 1)
+  period <- air_data[1, 4]
+  year <- air_data[1, 5] + 2000
 
-	# Filter by station.
-	if (!is.na(station)) {
-		air_data <- air_data[air_data$Station == station ,]
-	}
+  # Parse air quality data.
+  if (period == 2) {
+    air_data <- madrid.air.parser.hourly(input)
+  } else if (period == 4) {
+    air_data <- madrid.air.parser.daily(input, year)
+  } else {
+    stop("Invalid file format.")
+  }
 
-	# Filter by magnitude
-	if (!is.na(magnitude)) {
-		air_data <- air_data[air_data$Magnitude == magnitude ,]
-	}
+  # Filter by station.
+  if (!is.na(station)) {
+    air_data <- air_data[air_data$Station == station, ]
+  }
 
-	# Save the dataset to disk.
-	if (!is.na(output)) {
-		utils::write.csv(air_data, file=output, row.names=F, quote=F)
-	}
+  # Filter by magnitude
+  if (!is.na(magnitude)) {
+    air_data <- air_data[air_data$Magnitude == magnitude, ]
+  }
 
-	air_data
+  # Save the dataset to disk.
+  if (!is.na(output)) {
+    utils::write.csv(air_data, file = output, row.names = F, quote = F)
+  }
+
+  air_data
 }
 
 ################################################################################
@@ -109,145 +116,155 @@ madrid.air.parse <- function (input, output = NA, station = NA, magnitude = NA) 
 # Parses daily air quality data and returns a data frame.
 #
 # Args:
-# 	input: Source file containing the raw air quality data.
-# 	year: The year the data was collected.
+#   input: Source file containing the raw air quality data.
+#   year: The year the data was collected.
 #
 # Returns:
-# 	A data frame.
+#   A data frame.
 ################################################################################
 madrid.air.parser.daily <- function (input, year, output = NA) {
-	
-	# There was an extra column before 2011 with the value 00 in daily
-	# data. See: http://datos.madrid.es/FWProjects/egob/contenidos/datasets/fich
-	# eros/MedioAmbiente_CalidadAire/INTPHORA-DIA_V2.2.pdf
-	if (year < 2011) {
-		air_data <- utils::read.fwf(input, widths=c(8, 2, 2, 2, 2, 2, 2,
-		                            rep(6, 31)), stringsAsFactors=F)
 
-		# Remove the extra column.
-		air_data <- air_data[,-7]
-	} else {
-		air_data <- utils::read.fwf(input, widths=c(8, 2, 2, 2, 2, 2,
-		                            rep(6, 31)), stringsAsFactors=F)
-	}
+  # There was an extra column before 2011 with the value 00 in daily
+  # data.
+  if (year < 2011) {
+    air_data <- utils::read.fwf(input, widths = c(8, 2, 2, 2, 2, 2, 2,
+                                rep(6, 31)), stringsAsFactors = FALSE)
 
-	# Remove the measurement technique and period columns.
-	air_data <- air_data[,-c(3, 4)]
+    # Remove the extra column.
+    air_data <- air_data[, -7]
+  } else {
+    air_data <- utils::read.fwf(input, widths = c(8, 2, 2, 2, 2, 2,
+                                rep(6, 31)), stringsAsFactors = FALSE)
+  }
 
-	# Set appropriate column names.
-	names(air_data) <- c("Station", "Magnitude", "Year", "Month", c(1:31))
+  # Remove the measurement technique and period columns.
+  air_data <- air_data[, -c(3, 4)]
 
-	# Leave one daily observation per row.
-	air_data <- tidyr::gather(air_data, Day, Value, 5:35)
+  # Set appropriate column names.
+  names(air_data) <- c("Station", "Magnitude", "Year", "Month", c(1:31))
 
-	# Perform common parsing operations.
-	air_data <- madrid.air.parser.common(air_data)
+  # Leave one daily observation per row.
+  air_data <- tidyr::gather(air_data, Day, Value, 5:35)
 
-	# Rearrange the columns.
-	air_data <- air_data[,c("Station", "Year", "Month", "Day", "Magnitude",
-	                        "Value")]
+  # Perform common parsing operations.
+  air_data <- madrid.air.parser.common(air_data)
 
-	# Sort by date.
-	air_data <- dplyr::arrange(air_data, Month, Day)
+  # Rearrange the columns.
+  air_data <- air_data[, c("Station", "Year", "Month", "Day", "Magnitude",
+                          "Value")]
 
-	air_data
+  # Sort by date.
+  air_data <- dplyr::arrange(air_data, Month, Day)
+
+  air_data
 }
 
 ################################################################################
 # Parses hourly air quality data and returns a data frame.
 #
 # Args:
-# 	input: Source file containing the raw air quality data.
+#   input: Source file containing the raw air quality data.
 #
 # Returns:
-# 	A data frame.
+#   A data frame.
 ################################################################################
 madrid.air.parser.hourly <- function (input) {
-	
-	air_data <- utils::read.fwf(input, widths=c(8, 2, 2, 2, 2, 2, 2, rep(6, 24)),
-	                            stringsAsFactors=F)
 
-	# Remove the measurement technique and period columns.
-	air_data <- air_data[,-c(3, 4)]
+  air_data <- utils::read.fwf(input,
+                              widths = c(8, 2, 2, 2, 2, 2, 2, rep(6, 24)),
+                              stringsAsFactors = FALSE)
 
-	# Set appropriate column names.
-	names(air_data) <- c("Station", "Magnitude", "Year", "Month", "Day",
-	                     c(1:24))
+  # Remove the measurement technique and period columns.
+  air_data <- air_data[, -c(3, 4)]
 
-	# Leave one hourly observation per row.
-	air_data <- tidyr::gather(air_data, Hour, Value, 6:29)
+  # Set appropriate column names.
+  names(air_data) <- c("Station", "Magnitude", "Year", "Month", "Day",
+                       c(1:24))
 
-	# Perform common parsing operations.
-	air_data <- madrid.air.parser.common(air_data)
+  # Leave one hourly observation per row.
+  air_data <- tidyr::gather(air_data, Hour, Value, 6:29)
 
-	# Rearrange the columns.
-	air_data <- air_data[,c("Station", "Year", "Month", "Day", "Hour",
-	                        "Magnitude", "Value")]
+  # Perform common parsing operations.
+  air_data <- madrid.air.parser.common(air_data)
 
-	# Fix some column types.
-	air_data$Hour <- as.integer(air_data$Hour)
+  # Rearrange the columns.
+  air_data <- air_data[, c("Station", "Year", "Month", "Day", "Hour",
+                          "Magnitude", "Value")]
 
-	# Sort by date.
-	air_data <- dplyr::arrange(air_data, Month, Day, Hour)
+  # Fix some column types.
+  air_data$Hour <- as.integer(air_data$Hour)
 
-	air_data
+  # Sort by date.
+  air_data <- dplyr::arrange(air_data, Month, Day, Hour)
+
+  air_data
 }
 
 ################################################################################
 # Performs parsing operation common to daily and hourly data.
 #
 # Args:
-# 	input: A data frame containing daily or hourly air quality data.
+#   input: A data frame containing daily or hourly air quality data.
 #
 # Returns:
-# 	A data frame.
+#   A data frame.
 ################################################################################
 madrid.air.parser.common <- function (air_data) {
 
-	# Separate the validation code from the actual value.
-	air_data <- tidyr::separate(air_data, Value, c("Value", "ValidationCode"), sep=5)
-	
-	# We will only keep valid data (validation code "V").
-	air_data <- dplyr::filter(air_data, ValidationCode == "V")
-	
-	# Sanity check.
-	if (nrow(air_data) == 0) {
-		stop("Invalid file format.")
-	}
+  # Separate the validation code from the actual value.
+  air_data <- tidyr::separate(air_data, Value, c("Value", "ValidationCode"),
+                              sep = 5)
 
-	# Remove the validation code from the dataset.
-	air_data <- air_data[, -which(names(air_data) %in% c("ValidationCode"))]
-	
-	# Convert values to double precision numbers.
-	air_data$Value <- as.double(air_data$Value)
+  # We will only keep valid data (validation code "V").
+  air_data <- dplyr::filter(air_data, ValidationCode == "V")
 
-	# Save magnitudes as a factor.
-	air_data$Magnitude <- factor(air_data$Magnitude,
-	                             levels=madrid.air.magnitudes[, "Magnitude"],
-	                             labels=madrid.air.magnitudes[, "Abbreviation"])
-	
-	# Remove unknown magnitudes.
-	# Note: There is no description for magnitude 85 in the docs!!!
-	air_data <- air_data[!is.na(air_data$Magnitude),]
-	
-	# Some station codes changed after 2011. Rename old codes to new
-	# codes. See: http://datos.madrid.es/FWProjects/egob/contenidos/datasets/fic
-	# heros/MedioAmbiente_CalidadAire/INTPHORA-DIA_V2.2.pdf
-	air_data[air_data$Station == 28079003, "Station"] <- 28079035 # Pza. del Carmen.
-	air_data[air_data$Station == 28079005, "Station"] <- 28079039 # Barrio del Pilar.
-	air_data[air_data$Station == 28079010, "Station"] <- 28079038 # Cuatro Caminos.
-	air_data[air_data$Station == 28079013, "Station"] <- 28079040 # Vallecas.
-	air_data[air_data$Station == 28079020, "Station"] <- 28079036 # Moratalaz.
-	air_data[air_data$Station == 28079086, "Station"] <- 28079060 # Tres Olivos.
+  # Sanity check.
+  if (nrow(air_data) == 0) {
+    stop("Invalid file format.")
+  }
 
-	# Fix the Year column.
-	air_data$Year <- air_data$Year + 2000
+  # Remove the validation code from the dataset.
+  air_data <- air_data[, -which(names(air_data) %in% c("ValidationCode"))]
 
-	# Fix some column types.
-	air_data$Year <- as.integer(air_data$Year)
-	air_data$Month <- as.integer(air_data$Month)
-	air_data$Day <- as.integer(air_data$Day)
-	air_data$Station <- as.factor(air_data$Station)
+  # Convert values to double precision numbers.
+  air_data$Value <- as.double(air_data$Value)
 
-	air_data
+  # Save magnitudes as a factor.
+  air_data$Magnitude <- factor(air_data$Magnitude,
+                               levels = madrid.air.magnitudes[, "Magnitude"],
+                               labels = madrid.air.magnitudes[, "Abbreviation"])
+
+  # Remove unknown magnitudes.
+  # Note: There is no description for magnitude 85 in the docs!!!
+  air_data <- air_data[!is.na(air_data$Magnitude), ]
+
+  # Some station codes changed after 2011. Rename old codes to new codes.
+  # Pza. del Carmen.
+  air_data[air_data$Station == 28079003, "Station"] <- 28079035
+
+  # Barrio del Pilar.
+  air_data[air_data$Station == 28079005, "Station"] <- 28079039
+
+  # Cuatro Caminos.
+  air_data[air_data$Station == 28079010, "Station"] <- 28079038
+
+  # Vallecas.
+  air_data[air_data$Station == 28079013, "Station"] <- 28079040
+
+  # Moratalaz.
+  air_data[air_data$Station == 28079020, "Station"] <- 28079036
+
+  # Tres Olivos.
+  air_data[air_data$Station == 28079086, "Station"] <- 28079060
+
+  # Fix the Year column.
+  air_data$Year <- air_data$Year + 2000
+
+  # Fix some column types.
+  air_data$Year <- as.integer(air_data$Year)
+  air_data$Month <- as.integer(air_data$Month)
+  air_data$Day <- as.integer(air_data$Day)
+  air_data$Station <- as.factor(air_data$Station)
+
+  air_data
 }

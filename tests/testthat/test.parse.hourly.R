@@ -13,22 +13,22 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 test_that("hourly data is properly parsed", {
-	
-	# Test daily data for 2001/04/28
-	data <- madrid.air.parse("test.parse.hourly.data")
 
-	# One row per hour
-	expect_equal(nrow(data), 24)
+  # Test daily data for 2001/04/28
+  data <- madrid.air.parse("test.parse.hourly.data")
 
-	# Seven variables.
-	expect_equal(ncol(data), 7)
+  # One row per hour
+  expect_equal(nrow(data), 24)
 
-	# Test variables for 2001/04/28 12:00
-	expect_equal(as.character(data[12, 1]), "28079002")
-	expect_equal(as.character(data[12, 2]), "2001")
-	expect_equal(as.character(data[12, 3]), "4")
-	expect_equal(as.character(data[12, 4]), "28")
-	expect_equal(as.character(data[12, 5]), "12")
-	expect_equal(as.character(data[12, 6]), "O3")
-	expect_equal(data[12, 7], 27.05)
+  # Seven variables.
+  expect_equal(ncol(data), 7)
+
+  # Test variables for 2001/04/28 12:00
+  expect_equal(as.character(data[12, 1]), "28079002")
+  expect_equal(as.character(data[12, 2]), "2001")
+  expect_equal(as.character(data[12, 3]), "4")
+  expect_equal(as.character(data[12, 4]), "28")
+  expect_equal(as.character(data[12, 5]), "12")
+  expect_equal(as.character(data[12, 6]), "O3")
+  expect_equal(data[12, 7], 27.05)
 })
