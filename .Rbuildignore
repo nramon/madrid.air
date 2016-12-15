@@ -1,5 +1,4 @@
 ^.travis.yml$
 ^build.sh$
 ^data-raw$
-^LICENSE$
 ^README.md$
