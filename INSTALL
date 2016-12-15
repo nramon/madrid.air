@@ -1,0 +1,7 @@
+Installing madrid.air
+---------------------
+
+To install from sources make sure R is installed and simply run:
+
+	make install
+
