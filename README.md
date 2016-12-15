@@ -46,6 +46,14 @@ library(madrid.air)
 ?madrid.air.stations
 ```
 
+## Bugs and issues
+
+To provide feedback please use the [issue tracker](https://github.com/nramon/madrid.air/issues).
+
+## Contributing
+
+See [CONTRIBUTING.md](https://github.com/nramon/madrid.air/blob/master/CONTRIBUTING.md).
+
 ## Copyright
 
 Copyright (C) 2016 Ramon Novoa <ramonnovoa@gmail.com>
