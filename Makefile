@@ -5,9 +5,11 @@ use_data(madrid.air.magnitudes, overwrite=TRUE); \
 source('data-raw/madrid.air.stations.R'); \
 use_data(madrid.air.stations, overwrite=TRUE);"
 
-.PHONY:document check test build
+.PHONY: dist document check test build install
 
-all:document check test build
+all:
+
+dist: document check test build
 
 document:
 	${CC} -e ${RAW_DATA} -e "document();"
@@ -20,3 +22,8 @@ test:
 
 build:
 	${CC} -e ${RAW_DATA} -e "build();"
+
+install:
+	${CC} -e "install.packages('dplyr', repos='https://cloud.r-project.org/');"
+	${CC} -e "install.packages('tidyr', repos='https://cloud.r-project.org/');"
+	${CC} -e "install.packages('.', repos=NULL);"
