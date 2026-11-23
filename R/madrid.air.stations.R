@@ -12,6 +12,6 @@
 #'  \item{Comments}{Additional comments (e.g., "Closed on 04/05/2009").}
 #' }
 #' @usage data(madrid.air.stations)
-#' @source \url{http://datos.madrid.es/FWProjects/egob/contenidos/datasets/ficheros/MedioAmbiente_CalidadAire/INTPHORA-DIA_V2.2.pdf}
+#' @source \url{https://datos.madrid.es/dataset/201200-0-calidad-aire-horario}
 #' @source \url{http://www.eea.europa.eu/data-and-maps/data/airbase-the-european-air-quality-database-8}
 "madrid.air.stations"

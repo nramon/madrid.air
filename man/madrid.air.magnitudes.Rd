@@ -13,7 +13,7 @@ data.}
  \item{Unit}{Measurement unit (e.g., "m/s").}
 }}
 \source{
-\url{http://datos.madrid.es/FWProjects/egob/contenidos/datasets/ficheros/MedioAmbiente_CalidadAire/INTPHORA-DIA_V2.2.pdf}
+\url{https://datos.madrid.es/dataset/201200-0-calidad-aire-horario}
 }
 \usage{
 data(madrid.air.magnitudes)
