@@ -1,8 +1,8 @@
 Package: madrid.air
 Type: Package
 Title: Madrid Air Quality Data Parser
-Version: 1.0.0
-Date: 2016-05-24
+Version: 2.0.0
+Date: 2026-11-23
 Author: Ramon Novoa
 Maintainer: Ramon Novoa <ramonnovoa@gmail.com>
 Description: Convert raw air quality data published by
