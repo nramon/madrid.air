@@ -4,7 +4,7 @@ VERSION=$(shell sed -n 's/^Version: //p' DESCRIPTION)
 TARBALL=${PKG}_${VERSION}.tar.gz
 SAVE_DATA="for (name in c('madrid.air.magnitudes', 'madrid.air.stations')) { \
 source(paste0('data-raw/', name, '.R')); \
-save(list = name, file = paste0('data/', name, '.rda'), compress = 'bzip2', version = 2); }"
+save(list = name, file = paste0('data/', name, '.rda'), compress = 'bzip2'); }"
 
 .PHONY: dist deps data document check test lint build install
 

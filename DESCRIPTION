@@ -9,7 +9,7 @@ Description: Convert raw air quality data published by
     \url{https://datos.madrid.es/} to a clean data frame.
 License: GPL-3
 Depends:
-	R (>= 2.15.0)
+	R (>= 3.5.0)
 Imports:
     utils
 Suggests:

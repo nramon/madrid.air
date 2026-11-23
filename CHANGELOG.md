@@ -6,6 +6,7 @@
  * Drop support for the old fixed-width format, which is no longer published.
  * Files spanning several years are sorted by year.
  * Remove the tidyr and dplyr dependencies.
+ * Require R 3.5.0 or later.
  * Update the data download URLs.
 
 ## v1.0.0 (2016-12-15)
