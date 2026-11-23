@@ -8,6 +8,7 @@
  * Remove the tidyr and dplyr dependencies.
  * Require R 3.5.0 or later.
  * Update the data download URLs.
+ * Fix the NO and NO2 magnitude codes, which were swapped.
 
 ## v1.0.0 (2016-12-15)
 

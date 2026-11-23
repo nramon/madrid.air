@@ -82,3 +82,13 @@ test_that("TXT files with too few fields are rejected", {
     "Invalid file format."
   )
 })
+
+test_that("nitrogen oxides are properly labeled", {
+  # NOx is approximately NO2 + 1.53 * NO.
+  data <- madrid.air.parse("test.parse.nitrogen.data")
+  day1 <- data[data$Day == 1, ]
+  value <- function(name) day1[day1$Magnitude == name, "Value"]
+  expect_equal(value("NO"), 12)
+  expect_equal(value("NO2"), 33)
+  expect_equal(value("NOx"), 51)
+})
