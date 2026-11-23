@@ -6,14 +6,12 @@ Date: 2016-05-24
 Author: Ramon Novoa
 Maintainer: Ramon Novoa <ramonnovoa@gmail.com>
 Description: Convert raw air quality data published by
-    \url{http://datos.madrid.es/} to a clean data frame.
+    \url{https://datos.madrid.es/} to a clean data frame.
 License: GPL-3
 Depends:
 	R (>= 2.15.0)
 Imports:
-	utils,
-    tidyr,
-    dplyr
+    utils
 Suggests:
     testthat,
 	lintr

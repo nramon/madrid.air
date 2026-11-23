@@ -13,7 +13,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 test_that("daily data after 2011 is properly parsed", {
-
   # Test daily data for 2011/01
   data <- madrid.air.parse("test.parse.daily.2011.data")
 

@@ -13,7 +13,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 test_that("filters are working", {
-
   # Filter by station.
   data <- madrid.air.parse("test.parse.filters.data", station = 28079002)
 

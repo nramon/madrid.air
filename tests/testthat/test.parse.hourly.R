@@ -13,7 +13,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 test_that("hourly data is properly parsed", {
-
   # Test daily data for 2001/04/28
   data <- madrid.air.parse("test.parse.hourly.data")
 

@@ -24,6 +24,4 @@ build:
 	${CC} -e ${RAW_DATA} -e "build();"
 
 install:
-	${CC} -e "install.packages('dplyr', repos='https://cloud.r-project.org/');"
-	${CC} -e "install.packages('tidyr', repos='https://cloud.r-project.org/');"
 	${CC} -e "install.packages('.', repos=NULL);"

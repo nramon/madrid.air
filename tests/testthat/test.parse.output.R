@@ -13,15 +13,16 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 test_that("CSV output is working", {
-
   # Delete the CSV file if it already exists.
   if (file.exists("test.parse.output.csv")) {
     unlink("test.parse.output.csv")
   }
 
   # Save the dataset to disk.
-  data <- madrid.air.parse(input = "test.parse.output.data",
-                           output = "test.parse.output.csv")
+  data <- madrid.air.parse(
+    input = "test.parse.output.data",
+    output = "test.parse.output.csv"
+  )
 
   # Check the generated CSV file.
   expect_equal(file.exists("test.parse.output.csv"), TRUE)

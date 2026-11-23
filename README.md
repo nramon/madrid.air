@@ -2,23 +2,25 @@
 
 # Madrid Air Quality Data Parser
 
-Convert raw air quality data published by [http://datos.madrid.es/](http://datos.madrid.es/) to a clean data frame.
+Convert raw air quality data published by [https://datos.madrid.es/](https://datos.madrid.es/) to a clean data frame.
 
 The original format is hard to interpret:
 
 ```
-2807900214060201042844.55V52.04V48.30V48.37V23.60V27.89V28.42V13.75V19.11V38.89V26.32V27.05V41.60V46.91V58.52V77.15V74.55V60.91V52.33V46.20V23.47V9.500V12.24V18.92V
+28;079;4;6;28079004_6_48;2024;04;01;0.3;V;0.3;V;0.3;V;0.3;V;0.3;V;0.3;V;0.3;V;0.4;V;0.4;V;...
 ```
 
 [madrid.air](https://github.com/nramon/madrid.air) allows you to convert it to a more readable form:
 
 ```
-     Station Year Month Day Hour Magnitude Value
-1	28079002 2001     4  28    1        O3 44.55
-2	28079002 2001     4  28    2        O3 52.04
-3	28079002 2001     4  28    3        O3 48.30
+   Station Year Month Day Hour Magnitude Value
+1 28079004 2024     4   1    1        CO   0.3
+2 28079004 2024     4   1    2        CO   0.3
+3 28079004 2024     4   1    3        CO   0.3
 ...
 ```
+
+Both the CSV and TXT formats published by Madrid City Council are supported. Files for all years, back to 2001, are available in these formats.
 
 ## Installation
 
@@ -32,7 +34,12 @@ install_github("nramon/madrid.air")
 
 ## Downloading Madrid air quality data
 
-Both [daily](http://datos.madrid.es/sites/v/index.jsp?vgnextoid=aecb88a7e2b73410VgnVCM2000000c205a0aRCRD&vgnextchannel=374512b9ace9f310VgnVCM100000171f5a0aRCRD) and [hourly](http://datos.madrid.es/sites/v/index.jsp?vgnextoid=f3c0f7d512273410VgnVCM2000000c205a0aRCRD&vgnextchannel=374512b9ace9f310VgnVCM100000171f5a0aRCRD) data can be freely downloaded from [http://datos.madrid.es/](http://datos.madrid.es/).
+Both [daily](https://datos.madrid.es/dataset/201410-0-calidad-aire-diario) and [hourly](https://datos.madrid.es/dataset/201200-0-calidad-aire-horario) data can be freely downloaded from [https://datos.madrid.es/](https://datos.madrid.es/) (also listed in [datos.gob.es](https://datos.gob.es/es/catalogo/l01280796-calidad-del-aire-datos-diarios-desde-2001)).
+
+* Daily data is published as one CSV or TXT file per year. For example, `https://datos.madrid.es/dataset/201410-0-calidad-aire-diario/resource/201410-4-calidad-aire-diario-csv/download/201410-4-calidad-aire-diario-csv.csv` contains 2024. The most recent years are published together in a single, regularly updated file whose name includes a timestamp, so use the dataset page to get its current link.
+* Hourly data is published as one ZIP file per year containing one CSV/TXT file per month. For example, `https://datos.madrid.es/dataset/201200-0-calidad-aire-horario/resource/201200-0-calidad-aire-horario-zip/download/201200-0-calidad-aire-horario-zip.zip` contains 2024.
+
+The file format is described in the [official documentation](https://datos.madrid.es/dataset/201200-0-calidad-aire-horario/resource/201200-17-calidad-aire-horario/download/interprete_ficheros_20calidad_20del_20aire_global.pdf).
 
 ## Usage
 

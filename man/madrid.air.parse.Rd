@@ -22,37 +22,44 @@ be saved.}
 A data frame containing air quality data.
 }
 \description{
-Parses raw air quality data published by \url{http://datos.madrid.es/} and returns
-a clean data frame.
+Parses raw air quality data published by \url{https://datos.madrid.es/} and
+returns a clean data frame. The CSV (semicolon separated, with header) and
+TXT (comma separated, no header) formats are supported.
 }
 \examples{
-# Download and parse daily data.
-download.file('http://datos.madrid.es/egob/catalogo/201410-14-calidad-aire-diario.txt',
-              '201410-14-calidad-aire-diario.txt')
-madrid.air.parse('201410-14-calidad-aire-diario.txt')
+# Download and parse daily data for 2024 (CSV).
+base <- 'https://datos.madrid.es/dataset/201410-0-calidad-aire-diario/'
+base <- paste0(base, 'resource/')
+download.file(paste0(base, '201410-4-calidad-aire-diario-csv/download/',
+                     '201410-4-calidad-aire-diario-csv.csv'),
+              '201410-4-calidad-aire-diario-csv.csv')
+madrid.air.parse('201410-4-calidad-aire-diario-csv.csv')
 
 # Save air quality data to disk.
-madrid.air.parse('201410-14-calidad-aire-diario.txt',
-                 output='201410-14-calidad-aire-diario.csv')
+madrid.air.parse('201410-4-calidad-aire-diario-csv.csv',
+                 output='201410-4-calidad-aire-diario.csv')
 
-# Download and parse hourly data.
-download.file('http://datos.madrid.es/egob/catalogo/201200-29-calidad-aire-horario.zip',
-              '201200-29-calidad-aire-horario.zip')
-unzip('201200-29-calidad-aire-horario.zip')
-madrid.air.parse('Ene_mo01.txt')
+# Download and parse hourly data for 2024. The zip file contains one
+# file per month.
+base <- 'https://datos.madrid.es/dataset/201200-0-calidad-aire-horario/'
+base <- paste0(base, 'resource/')
+download.file(paste0(base, '201200-0-calidad-aire-horario-zip/download/',
+                     '201200-0-calidad-aire-horario-zip.zip'),
+              '201200-0-calidad-aire-horario-zip.zip')
+unzip('201200-0-calidad-aire-horario-zip.zip')
+madrid.air.parse('Anio24/abr_mo24.csv')
 
 # Check station information.
 data(madrid.air.stations)
 madrid.air.stations
 
 # Filter by station.
-madrid.air.parse('Ene_mo01.txt', station=28079001)
+madrid.air.parse('Anio24/abr_mo24.csv', station=28079001)
 
 # Check magnitude information.
 data(madrid.air.magnitudes)
 madrid.air.magnitudes
 
 # Filter by magnitude.
-madrid.air.parse('Ene_mo01.txt', magnitude='CO')
+madrid.air.parse('Anio24/abr_mo24.csv', magnitude='CO')
 }
-
