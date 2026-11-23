@@ -55,7 +55,7 @@ library(madrid.air)
 
 ## Development
 
-Clone the repository and install the R packages needed to work on it:
+Clone the repository and install the R packages needed to run the tests and the linter:
 
 ```
 git clone https://github.com/nramon/madrid.air.git
@@ -63,10 +63,10 @@ cd madrid.air
 make deps
 ```
 
-On Debian or Ubuntu `devtools` needs some system libraries first. If `make deps` fails, run:
+On Debian or Ubuntu some of them need system libraries first. If `make deps` fails, run:
 
 ```
-sudo apt install build-essential libcurl4-openssl-dev libssl-dev libxml2-dev libfontconfig1-dev libharfbuzz-dev libfribidi-dev libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev
+sudo apt install build-essential libuv1-dev libxml2-dev libcurl4-openssl-dev libssl-dev
 ```
 
 Then use the following targets:
@@ -74,9 +74,9 @@ Then use the following targets:
 * `make test`: run the tests.
 * `make lint`: check the code style.
 * `make check`: run `R CMD check`.
-* `make document`: regenerate the documentation in `man/`.
-* `make data`: regenerate the datasets in `data/` from `data-raw/`. It is only needed after editing `data-raw/`.
 * `make build`: build the package.
+* `make document`: regenerate the documentation in `man/`. It requires the [roxygen2](https://CRAN.R-project.org/package=roxygen2) package, which is only needed if you change the documentation.
+* `make data`: regenerate the datasets in `data/` from `data-raw/`. It is only needed after editing `data-raw/`.
 
 ## Bugs and issues
 
