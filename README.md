@@ -53,6 +53,31 @@ library(madrid.air)
 ?madrid.air.stations
 ```
 
+## Development
+
+Clone the repository and install the R packages needed to work on it:
+
+```
+git clone https://github.com/nramon/madrid.air.git
+cd madrid.air
+make deps
+```
+
+On Debian or Ubuntu `devtools` needs some system libraries first. If `make deps` fails, run:
+
+```
+sudo apt install build-essential libcurl4-openssl-dev libssl-dev libxml2-dev libfontconfig1-dev libharfbuzz-dev libfribidi-dev libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev
+```
+
+Then use the following targets:
+
+* `make test`: run the tests.
+* `make lint`: check the code style.
+* `make check`: run `R CMD check`.
+* `make document`: regenerate the documentation in `man/`.
+* `make data`: regenerate the datasets in `data/` from `data-raw/`. It is only needed after editing `data-raw/`.
+* `make build`: build the package.
+
 ## Bugs and issues
 
 To provide feedback please use the [issue tracker](https://github.com/nramon/madrid.air/issues).
