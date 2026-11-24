@@ -1,6 +1,6 @@
-[![check](https://github.com/nramon/madrid.air/actions/workflows/check.yaml/badge.svg)](https://github.com/nramon/madrid.air/actions/workflows/check.yaml) [![codecov](https://codecov.io/gh/nramon/madrid.air/branch/master/graph/badge.svg)](https://codecov.io/gh/nramon/madrid.air) [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/265/badge)](https://bestpractices.coreinfrastructure.org/projects/265)
-
 # Madrid Air Quality Data Parser
+
+[![check](https://github.com/nramon/madrid.air/actions/workflows/check.yaml/badge.svg)](https://github.com/nramon/madrid.air/actions/workflows/check.yaml) [![codecov](https://codecov.io/gh/nramon/madrid.air/branch/master/graph/badge.svg)](https://codecov.io/gh/nramon/madrid.air) [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/265/badge)](https://bestpractices.coreinfrastructure.org/projects/265)
 
 Convert raw air quality data published by [https://datos.madrid.es/](https://datos.madrid.es/) to a clean data frame.
 
